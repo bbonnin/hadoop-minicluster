@@ -51,7 +51,9 @@ public class HiveServer2Client {
     }
 
     private TTransport createBinaryTransport() throws Exception {
-        return PlainSaslHelper.getPlainTransport("anonymous", "anonymous", new TSocket(host, port));
+        final TTransport transport = PlainSaslHelper.getPlainTransport("anonymous", "anonymous", new TSocket(host, port));
+        transport.open();
+        return transport;
     }
 
     private void initClient(TTransport transport) {
