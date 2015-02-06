@@ -15,7 +15,6 @@ import org.apache.hive.service.server.HiveServer2;
  */
 public class HiveServer2Launcher {
 
-    private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 11100;
     
     private HiveServer2 server;
@@ -41,13 +40,6 @@ public class HiveServer2Launcher {
     }
 
     public void setConfig(Configuration config) {
-        
-//        this.config = new HiveConf();
-//        while (iter.hasNext()) {
-//            final Entry<String, String> entry = iter.next();
-//            this.config.set(entry.getKey(), entry.getValue());
-//        }
-        
         this.config = new HiveConf(config, config.getClass());
         this.config.setBoolVar(ConfVars.HIVE_SERVER2_ENABLE_DOAS, false);
         if (this.host != null) {
@@ -68,29 +60,5 @@ public class HiveServer2Launcher {
         if (server != null) {
             server.stop();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        HiveConf hiveConf = new HiveConf();
-        hiveConf.set("javax.jdo.option.ConnectionURL", "jdbc:derby:;databaseName=metastore_db;create=true");
-        hiveConf.set("javax.jdo.option.ConnectionDriverName", "org.apache.derby.jdbc.EmbeddedDriver");
-        hiveConf.set("hive.metastore.warehouse.dir", "file:///tmp");
-        //hiveConf.set("hive.server2.thrift.port", "11100");
-        hiveConf.setBoolVar(ConfVars.HIVE_SERVER2_ENABLE_DOAS, false);
-        hiveConf.setVar(ConfVars.HIVE_SERVER2_THRIFT_BIND_HOST, DEFAULT_HOST);
-        hiveConf.setIntVar(ConfVars.HIVE_SERVER2_THRIFT_PORT, DEFAULT_PORT);
-        hiveConf.setVar(ConfVars.HIVE_SERVER2_AUTHENTICATION, AuthTypes.NOSASL.toString());
-        hiveConf.setVar(ConfVars.HIVE_SERVER2_TRANSPORT_MODE, "binary");
-
-        /*<!--hive.metastore.local=true
-                mapreduce.framework.name=yarn
-                hive.exec.submitviachild=false-->
-                hive.debug.localtask=true
-                hive.auto.convert.join.use.nonstaged=true*/
-        HiveServer2 server = new HiveServer2();
-        server.init(hiveConf);
-        server.start();
-
-        //initClient(createBinaryTransport());
     }
 }

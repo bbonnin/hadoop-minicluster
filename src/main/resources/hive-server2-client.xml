@@ -13,7 +13,7 @@
 
     <ctx:annotation-config />
      
-    <bean id="hiveShell" class="hadoop.minicluster.hive.HiveServer2Client">
+    <bean id="hs2Client" class="hadoop.minicluster.hive.HiveServer2Client">
         <constructor-arg name="host" value="localhost" />
         <constructor-arg name="port" value="11100" />
     </bean>

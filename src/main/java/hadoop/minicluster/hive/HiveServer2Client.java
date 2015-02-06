@@ -12,6 +12,10 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
@@ -21,6 +25,8 @@ import org.apache.thrift.transport.TTransport;
  *
  */
 public class HiveServer2Client {
+    
+    private static final Logger logger = LoggerFactory.getLogger(HiveServer2Client.class);
 
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 11100;
@@ -34,7 +40,7 @@ public class HiveServer2Client {
         this.port = port;
     }
     
-    public void start() {
+    public void startTests() {
         try {
             initClient(createBinaryTransport());
             createTable();
@@ -90,5 +96,26 @@ public class HiveServer2Client {
         
         final TCloseSessionReq closeReq = new TCloseSessionReq(sessHandle);
         client.CloseSession(closeReq);
+    }
+    
+    /**
+     * Main.
+     * 
+     * @param args Command line arguments
+     * @throws Exception 
+     */
+    public static void main(String[] args) throws Exception {
+        
+        final AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("hive-server2-client.xml");
+        ctx.registerShutdownHook();
+
+        try {
+            final HiveServer2Client client = (HiveServer2Client) ctx.getBean(HiveServer2Client.class);
+            
+           client.startTests();
+        }
+        finally {
+            ctx.close();
+        }
     }
 }
