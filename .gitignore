@@ -4,3 +4,10 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
+build
+.settings
+.classpath
+.project
+*.log
+readme.txt
+metastore_db
