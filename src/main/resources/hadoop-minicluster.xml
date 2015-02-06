@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop-2.0.xsd
 	">
-<!-- 
+
     <bean
         id="hadoopCluster"
         class="org.springframework.data.hadoop.test.support.HadoopClusterFactoryBean">
@@ -31,7 +31,7 @@
             name="cluster"
             ref="hadoopCluster" />
     </bean>
--->
+
     <hdp:configuration id="hadoopConfiguration" configuration-ref="hadoopConfiguredConfiguration">
         javax.jdo.option.ConnectionURL=jdbc:derby:;databaseName=metastore_db;create=true
         javax.jdo.option.ConnectionDriverName=org.apache.derby.jdbc.EmbeddedDriver
@@ -42,17 +42,17 @@
         hive.debug.localtask=true
         hive.auto.convert.join.use.nonstaged=true
     </hdp:configuration>
-<!-- 
+
     <hdp:hive-server
         port="10001"
         auto-startup="true"
         configuration-ref="hadoopConfiguration" />
--->   
+
     <bean 
         id="hiveServer2"
         class="hadoop.minicluster.hive.HiveServer2Launcher" init-method="start"
         >
-        <constructor-arg name="port" value="localhost" />
+        <constructor-arg name="host" value="localhost" />
         <constructor-arg name="port" value="11100" />
         <property name="config" ref="hadoopConfiguration" />
     </bean>  

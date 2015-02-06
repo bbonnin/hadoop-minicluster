@@ -1,5 +1,6 @@
 package hadoop.minicluster.hive;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.conf.HiveConf.ConfVars;
 import org.apache.hive.service.auth.HiveAuthFactory.AuthTypes;
@@ -27,8 +28,15 @@ public class HiveServer2Launcher {
         this.port = port;
     }
     
-    public void setConfig(HiveConf config) {
-        this.config = config;
+    public void setConfig(Configuration config) {
+        
+//        this.config = new HiveConf();
+//        while (iter.hasNext()) {
+//            final Entry<String, String> entry = iter.next();
+//            this.config.set(entry.getKey(), entry.getValue());
+//        }
+        
+        this.config = new HiveConf(config, config.getClass());
         this.config.setBoolVar(ConfVars.HIVE_SERVER2_ENABLE_DOAS, false);
         this.config.setVar(ConfVars.HIVE_SERVER2_THRIFT_BIND_HOST, host);
         this.config.setIntVar(ConfVars.HIVE_SERVER2_THRIFT_PORT, port);
