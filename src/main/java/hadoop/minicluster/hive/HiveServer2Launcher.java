@@ -20,14 +20,26 @@ public class HiveServer2Launcher {
     
     private HiveServer2 server;
     private HiveConf config;
-    private String host = DEFAULT_HOST;
+    private String host;
     private int port = DEFAULT_PORT;
     
-    public HiveServer2Launcher(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public HiveServer2Launcher() {
     }
     
+    public void setHost(String host) {
+        this.host = host;
+        if (this.config != null && this.host !=  null) {
+            this.config.setVar(ConfVars.HIVE_SERVER2_THRIFT_BIND_HOST, host);
+        }
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+        if (this.config != null) {
+            this.config.setIntVar(ConfVars.HIVE_SERVER2_THRIFT_PORT, port);
+        }
+    }
+
     public void setConfig(Configuration config) {
         
 //        this.config = new HiveConf();
@@ -38,7 +50,9 @@ public class HiveServer2Launcher {
         
         this.config = new HiveConf(config, config.getClass());
         this.config.setBoolVar(ConfVars.HIVE_SERVER2_ENABLE_DOAS, false);
-        this.config.setVar(ConfVars.HIVE_SERVER2_THRIFT_BIND_HOST, host);
+        if (this.host != null) {
+            this.config.setVar(ConfVars.HIVE_SERVER2_THRIFT_BIND_HOST, host);
+        }
         this.config.setIntVar(ConfVars.HIVE_SERVER2_THRIFT_PORT, port);
         this.config.setVar(ConfVars.HIVE_SERVER2_AUTHENTICATION, AuthTypes.NOSASL.toString());
         this.config.setVar(ConfVars.HIVE_SERVER2_TRANSPORT_MODE, "binary");
