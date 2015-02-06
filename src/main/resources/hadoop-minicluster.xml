@@ -52,8 +52,7 @@
         id="hiveServer2"
         class="hadoop.minicluster.hive.HiveServer2Launcher" init-method="start"
         >
-        <constructor-arg name="host" value="localhost" />
-        <constructor-arg name="port" value="11100" />
+        <property name="port" value="11100" />
         <property name="config" ref="hadoopConfiguration" />
     </bean>  
 
