@@ -1,4 +1,4 @@
-package hadoopmongo;
+package hadoop.minicluster;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class MiniCluster {
             
             // Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh ! Shame on me !!!
             while (true) { 
-                Thread.currentThread().sleep(100000);
+                Thread.sleep(100000);
             }
         }
         finally {

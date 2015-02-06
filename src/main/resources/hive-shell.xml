@@ -10,7 +10,7 @@
 	   http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop-2.0.xsd
 	">
     
-    <import resource="hadoop-hive.xml" />
+    <import resource="hadoop-minicluster.xml" />
 
     <ctx:annotation-config />
 
