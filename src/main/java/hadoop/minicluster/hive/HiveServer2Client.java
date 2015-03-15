@@ -93,7 +93,7 @@ public class HiveServer2Client {
                         "a_principal_flg STRING, a_province STRING, a_row_id STRING, a_x_uge_flg STRING, " +
                         "a_zipcode STRING, b_active_flg STRING, d_asset_num STRING) " +
                         "STORED BY 'org.elasticsearch.hadoop.hive.EsStorageHandler' " +
-                        "TBLPROPERTIES('es.resource'='siebel/adresse', 'es.index.auto.create'='false', 'es.nodes'='192.168.1.45')";
+                        "TBLPROPERTIES('es.resource'='siebel/adresse', 'es.index.auto.create'='false')";//, 'es.nodes'='192.168.1.45')";
         executeQuerySync(queryString, sessHandle);
         
         final TCloseSessionReq closeReq = new TCloseSessionReq(sessHandle);
