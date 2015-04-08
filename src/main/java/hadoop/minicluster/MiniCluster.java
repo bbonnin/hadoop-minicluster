@@ -8,6 +8,7 @@ import javassist.CtMethod;
 import javassist.CtNewMethod;
 import javassist.NotFoundException;
 
+import org.apache.hadoop.conf.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -108,19 +109,9 @@ public class MiniCluster {
      * @throws Exception 
      */
     public static void main(String[] args) throws Exception {
-        
+                
         if (System.getProperty("os.name").startsWith("Windows")) {
-//            System.setProperty("os.name", "Linux"); // Does not work, because it implies the use of unix specific classes
-//            System.setProperty("HADOOP_USER_NAME", System.getProperty("user.name"));
-//            System.setProperty ("file.separator", "/");
-//            System.setProperty("user.dir", System.getProperty("user.dir").replace("\\", "/").replace("C:", "/cygdrive/c"));
-//            System.setProperty("java.security.auth.login.config", "jaas.config");
-            
-//            replaceMethod("org.apache.hadoop.security.UserGroupInformation", "getOSLoginModuleName",
-//                    "private static String getOSLoginModuleName() {" +
-//                    "    return \"com.sun.security.auth.module.NTLoginModule\";" +
-//                    "}");
-            
+//            System.setProperty("os.name", "Linux"); // Does not work, because it implies the use of unix specific Java classes            
        
             replaceMethod("org.apache.hadoop.io.nativeio.NativeIO$Windows", "access0",  
                     "private static boolean access0(String path, int requestedAccess) {" +
@@ -156,6 +147,11 @@ public class MiniCluster {
             ctx.registerShutdownHook();
             
             logger.info("Cluster started !");
+            
+            final Configuration cfg = (Configuration) ctx.getBean("hadoopConfiguredConfiguration");
+            System.out.println("Namenode : http://" + cfg.get("dfs.namenode.http-address") + "/webapps/hdfs/dfshealth.html");
+            System.out.println("YARN Resource manager : http://" + cfg.get("yarn.resourcemanager.webapp.address"));
+            System.out.println("Job History : http://" + cfg.get("mapreduce.jobhistory.webapp.address"));
             
             // Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh ! Shame on me !!!
             while (true) { 
