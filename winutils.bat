@@ -1,6 +1,35 @@
 @echo off
-rem Replace windows file separator by unix file separator
-rem for /f %%i in ('call bash "echo %* | sed 's/\\/r/g'"') do set params=%%i
-for /f %%i in ('call bash -c ls') do set params=%%i
-echo %params%
-call bash -c "%*"
+
+echo WINUTILS : %* >> winutils.log
+
+set tempFile=winutils.%RANDOM%
+
+
+if ""%1"" == ""symlink"" (
+  goto symlink  
+) else if ""%1"" == ""perm"" (
+  goto perm
+) else (
+  call bash -c "%*"
+  goto fin
+)
+
+
+:symlink
+cygpath -u "%2" > %tempFile%  
+set /p target= < %tempFile%
+cygpath -u "%3" > %tempFile%  
+set /p src= < %tempFile%
+call bash -c "ln -s %target% %src%"
+goto fin
+
+:perm
+cygpath -u "%2" > %tempFile%
+set /p target= < %tempFile%
+echo WINUTILS PERM : %target% >> winutils.log
+call bash -c "ls -ld %target%"
+goto fin
+
+
+:fin
+del %tempFile%
