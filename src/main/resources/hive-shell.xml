@@ -18,6 +18,6 @@
 
     <hdp:hive-template id="hiveTemplate" />
 
-    <bean id="hiveShell" class="hadoop.minicluster.HiveShell" />
+    <bean id="hiveShell" class="io.millesabords.hadoop.minicluster.hive.HiveShell" />
 
 </beans>

@@ -166,7 +166,7 @@
 								<argument>${arg.logging}</argument>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>hadoop.minicluster.hive.HiveShell</argument>
+								<argument>io.millesabords.hadoop.minicluster.hive.HiveShell</argument>
 							</arguments>
 						</configuration>
 					</plugin>
@@ -188,7 +188,7 @@
 								<argument>${arg.logging}</argument>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>hadoop.minicluster.hive.JdbcClient</argument>
+								<argument>io.millesabords.hadoop.minicluster.hive.JdbcClient</argument>
 							</arguments>
 						</configuration>
 					</plugin>
@@ -210,7 +210,7 @@
 								<argument>${arg.logging}</argument>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>hadoop.minicluster.hive.HiveServer2Client</argument>
+								<argument>io.millesabords.hadoop.minicluster.hive.HiveServer2Client</argument>
 							</arguments>
 						</configuration>
 					</plugin>
@@ -232,7 +232,7 @@
 								<argument>${arg.logging}</argument>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>hadoop.minicluster.MiniCluster</argument>
+								<argument>io.millesabords.hadoop.minicluster.SimpleMiniCluster</argument>
 							</arguments>
 						</configuration>
 					</plugin>

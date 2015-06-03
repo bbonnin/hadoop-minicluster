@@ -50,7 +50,7 @@
 
     <bean 
         id="hiveServer2"
-        class="hadoop.minicluster.hive.HiveServer2Launcher" init-method="start"
+        class="io.millesabords.hadoop.minicluster.hive.HiveServer2Launcher" init-method="start"
         >
         <property name="port" value="11100" />
         <property name="config" ref="hadoopConfiguration" />
